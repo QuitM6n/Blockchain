@@ -7,7 +7,7 @@ class Blockhain(object):
     def __init__(self):
         self.chain = []
         self.transaction = []
-        self.create_block(proof=100, previous_hash=1)
+        self.create_block(proof=1   , previous_hash='0')
 
     def create_block(self, proof, previous_hash=None):
         block = {'index': len(self.chain)+1,
@@ -31,12 +31,10 @@ class Blockhain(object):
 
         return self.get_previous_block['index']+1
     
-    @property
     def get_previous_block(self):
         return self.chain[-1]
     
-    @staticmethod
-    def hash_block(block):
+    def hash_block(self,block):
         to_hash = json.dumps(block, sort_keys=True).encode()
         return hashlib.sha256(to_hash).hexdigest
 
@@ -51,4 +49,3 @@ class Blockhain(object):
         guess = f'{last_proof}{proof}'.encode()
         guess_hash = hashlib.sha256(guess).hexdigest()
         return guess_hash[:4] == "0000"
-
